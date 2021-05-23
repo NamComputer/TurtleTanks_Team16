@@ -1,7 +1,9 @@
 import turtle
 import pygame
+import player
 from constants import *
 from player import Player
+
 from arena import Arena
 from score_turtle import ScoreTurtle
 from bullet import Bullet
@@ -91,19 +93,7 @@ def register_shapes():
     #components.append((map_transform(circle, 0, 0, 0, 3), "yellow"))
     build_tank("right", components)
 
-    import random
-    rand = random.randint(1,4)
-    style = ("Arial bold", 15)
-    turtle.penup()
-    turtle.goto(-280,320)
-    turtle.write("Score of red:"+str(rand),font=style, align="center")
-    turtle.goto(-280,300)
-    turtle.write("Health:"+str(PLAYER_HEALTH),font=style, align="center")
-    turtle.goto(270,320)
-    turtle.write("Score of blue:"+str(rand),font=style, align="center")
-    turtle.goto(270,300)
-    turtle.write("Health:"+str(PLAYER_HEALTH),font=style, align="center")
-
+    
     
 
 player_1 = None
@@ -125,7 +115,19 @@ def create_players(game_arena):
     kb.register_key("p2", "Down", "down")
     kb.register_key("p2", "Return", "fire")
     
+    # style = ("Arial bold", 15)
+    # turtle.penup()
+    # turtle.goto(-280,320)
+    # turtle.write("Score of red:"+str(),font=style, align="center")
+    # turtle.goto(-280,300)
+    # turtle.write("Health:"+str(player_1.hit()),font=style, align="center")
+    # turtle.goto(260,320)
+    # turtle.write("Score of blue:"+str(),font=style, align="center")
+    # turtle.goto(270,300)
+    # turtle.write("Health:"+str(player_2.hit()),font=style, align="center")
+
     turtle.listen()
+
 
 score = ScoreTurtle()
 def draw():
@@ -168,7 +170,7 @@ import tutorial
 game_arena = tutorial.game_arena
 if not isinstance(game_arena, Arena):
     raise RuntimeError 
-
+# info_show(game_arena)
 create_players(game_arena)
 
 draw()

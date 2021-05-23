@@ -71,11 +71,14 @@ class Player(Turtle):
     def hit(self):
         print("Hit!")
         winsound.PlaySound('sound/hit.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
+        print(self.health)
         if self.health == 1:
             return True
         else:
             self.health -= 1
             return False
+    
+
     
     def fire(self):
         Bullet(self.xcor(), self.ycor(), self.heading() if self.name is "p1" else self.heading() + pi, self.obstacles, self.name)
@@ -102,5 +105,5 @@ class Player(Turtle):
                     return
                 self.fireTime = time.time()
                 self.fire()
-                
-            
+    
+    
