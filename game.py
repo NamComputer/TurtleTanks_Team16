@@ -1,5 +1,5 @@
 import turtle
-
+import pygame
 from constants import *
 from player import Player
 from arena import Arena
@@ -16,10 +16,13 @@ canvas = turtle.getcanvas()
 # Create a keyboard
 kb = Keyboard(canvas)
 
+
+
 # Setup the game!
 def setup():
     # Create the window
     turtle.setup(WINDOW_SIZE, WINDOW_SIZE)
+    # WINDOW_SIZE = pygame.display.set_mode(WINDOW_SIZE,WINDOW_SIZE)
     # Hide the default turtle
     turtle.hideturtle()
     # Change the background color
@@ -87,6 +90,20 @@ def register_shapes():
     # Uncomment to draw bounding box for debugging
     #components.append((map_transform(circle, 0, 0, 0, 3), "yellow"))
     build_tank("right", components)
+
+    import random
+    rand = random.randint(1,4)
+    style = ("Arial bold", 15)
+    turtle.penup()
+    turtle.goto(-280,320)
+    turtle.write("Score of red:"+str(rand),font=style, align="center")
+    turtle.goto(-280,300)
+    turtle.write("Health:"+str(PLAYER_HEALTH),font=style, align="center")
+    turtle.goto(270,320)
+    turtle.write("Score of blue:"+str(rand),font=style, align="center")
+    turtle.goto(270,300)
+    turtle.write("Health:"+str(PLAYER_HEALTH),font=style, align="center")
+
     
 
 player_1 = None
@@ -132,6 +149,8 @@ def draw():
             if gameover is True and winner is not None:
                 score.game_over(winner)
                 return      
+
+            
     player_1.update()
     player_2.update()
 
