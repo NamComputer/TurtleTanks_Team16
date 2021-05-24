@@ -115,22 +115,15 @@ def create_players(game_arena):
     kb.register_key("p2", "Down", "down")
     kb.register_key("p2", "Return", "fire")
     
-    style = ("Arial bold", 15)
-    turtle.penup()
-    turtle.goto(-280,320)
-    turtle.write("Score of red:"+str(),font=style, align="center")
-    turtle.goto(-280,300)
-    turtle.write("Health:"+str(player_1.hit()),font=style, align="center")
-    turtle.goto(260,320)
-    turtle.write("Score of blue:"+str(),font=style, align="center")
-    turtle.goto(270,300)
-    turtle.write("Health:"+str(player_2.hit()),font=style, align="center")
 
     turtle.listen()
 
 
+gameover = None
 score = ScoreTurtle()
 def draw():
+    style = ("Arial bold", 15)
+    turtle.penup()
     for entity in screen.turtles():
         if isinstance(entity, Bullet) and entity.alive and entity.update() is None:
             gameover = False
@@ -138,14 +131,24 @@ def draw():
             if entity.distance(player_1) <= (player_1.radius + entity.radius) and entity.owner is not "p1":
                 entity.alive = False
                 entity.hideturtle()
-                gameover = player_1.hit()
-                if gameover:
+                gameover_1 = player_1.hit()
+                
+                turtle.clear()
+                turtle.goto(270,300)
+                
+                turtle.write("Health:"+str(gameover_1),font=style, align="center")
+                
+                if gameover_1:
                     winner = "blue"
             elif entity.distance(player_2) <= (player_2.radius + entity.radius) and entity.owner is not "p2":
                 entity.alive = False
                 entity.hideturtle()
-                gameover = player_2.hit()
-                if gameover:
+                gameover_2 = player_2.hit()
+
+                turtle.clear()
+                turtle.goto(-280,300)
+                turtle.write("Health:"+str(gameover_2),font=style, align="center")
+                if gameover_2:
                     winner = "red"
             
             if gameover is True and winner is not None:
@@ -161,6 +164,27 @@ def draw():
     # Redraw every 20 milliseconds
     canvas.after(20, draw)
 
+def info_show():
+    style = ("Arial bold", 15)
+    turtle.penup()
+    turtle.goto(-280,320)
+    turtle.write("Score of red:"+str(),font=style, align="center")
+    turtle.goto(260,320)
+    turtle.write("Score of blue:"+str(),font=style, align="center")
+
+    health = 3
+    while health >= 1 and health <=3:
+        if gameover is True or gameover is False:
+            turtle.goto(-280,300)
+            turtle.write("Health:"+str(health),font=style, align="center")
+            turtle.goto(270,300)
+            turtle.write("Health:"+str(gameover.health),font=style, align="center")
+            health -= 1
+    
+    
+
+    turtle.pendown()
+
 setup()
 register_shapes()
 
@@ -170,10 +194,12 @@ import tutorial
 game_arena = tutorial.game_arena
 if not isinstance(game_arena, Arena):
     raise RuntimeError 
-# info_show(game_arena)
+
 create_players(game_arena)
 
 draw()
+
+#info_show()
 
 # Required for every turtle program
 turtle.mainloop()

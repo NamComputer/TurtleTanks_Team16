@@ -17,10 +17,12 @@ class Obstacle:
                 self.width = data2
         else:
             raise ValueError(shape_name + " is not a real shape!")
-         
+
+    # Tính khoảng cách giữa hai điểm     
     def distance_sq(self, x1, y1, x2, y2):
         return (x2 - x1) ** 2 + (y2 - y1) ** 2
     
+    # Hàm này ngăn cho xe tăng ko đi qua đươc
     def collides_with(self, x, y, radius):
         if self.shape_name is "circle":
             return self.distance_sq(self.x, self.y, x, y) < ((self.radius + radius) ** 2)

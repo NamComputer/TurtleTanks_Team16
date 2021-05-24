@@ -75,11 +75,11 @@ class Player(Turtle):
         if self.health == 1:
             return True
         else:
-            self.health -= 1
+            self.health -= 1 
             return False
+        return a
     
 
-    
     def fire(self):
         Bullet(self.xcor(), self.ycor(), self.heading() if self.name is "p1" else self.heading() + pi, self.obstacles, self.name)
             
