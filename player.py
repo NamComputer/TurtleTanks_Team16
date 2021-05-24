@@ -71,7 +71,7 @@ class Player(Turtle):
     def hit(self):
         print("Hit!")
         winsound.PlaySound('sound/hit.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
-        print(self.health)
+        a = self.health
         if self.health == 1:
             return True
         else:
