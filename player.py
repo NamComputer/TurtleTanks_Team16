@@ -7,6 +7,7 @@ from math import sin, cos, pi
 import time
 
 TWO_PI = 2 * pi
+
 class Player(Turtle):
 
     def __init__(self, name, coord, game_arena, kb):
@@ -71,13 +72,13 @@ class Player(Turtle):
     def hit(self):
         print("Hit!")
         winsound.PlaySound('sound/hit.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
-        a = self.health
-        if self.health == 1:
+        print(self.health)
+        if self.health == 1 :
             return True
         else:
             self.health -= 1 
             return False
-        return a
+        Ư
     
 
     def fire(self):

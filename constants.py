@@ -1,4 +1,4 @@
-
+global PLAYER_HEALTH
 # -----------------------------------------------------
 # Constants
 # You can change these

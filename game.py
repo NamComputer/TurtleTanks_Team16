@@ -1,3 +1,4 @@
+from tkinter import constants
 import turtle
 import pygame
 import player
@@ -17,6 +18,7 @@ screen = turtle.Screen()
 canvas = turtle.getcanvas()
 # Create a keyboard
 kb = Keyboard(canvas)
+
 
 
 
@@ -121,40 +123,43 @@ def create_players(game_arena):
 
 gameover = None
 score = ScoreTurtle()
+global score_tanks_P1
+
+
 def draw():
     style = ("Arial bold", 15)
+    score_tanks_P1 = 0
+    #score_tanks_P2 += score_tanks_P2
     turtle.penup()
     for entity in screen.turtles():
         if isinstance(entity, Bullet) and entity.alive and entity.update() is None:
             gameover = False
             winner = None
+            if score_tanks_P1 == 0:
+                turtle.goto(180,320)
+                turtle.write("Score of blue:"+str(score_tanks_P1),font=style)
             if entity.distance(player_1) <= (player_1.radius + entity.radius) and entity.owner is not "p1":
                 entity.alive = False
                 entity.hideturtle()
-                gameover_1 = player_1.hit()
-                
-                turtle.clear()
-                turtle.goto(270,300)
-                
-                turtle.write("Health:"+str(gameover_1),font=style, align="center")
-                
-                if gameover_1:
-                    winner = "blue"
+                gameover = player_1.hit()
+                score_tanks_P1 +=1
+                if gameover :
+                    winner ="blue"
             elif entity.distance(player_2) <= (player_2.radius + entity.radius) and entity.owner is not "p2":
                 entity.alive = False
                 entity.hideturtle()
-                gameover_2 = player_2.hit()
-
-                turtle.clear()
-                turtle.goto(-280,300)
-                turtle.write("Health:"+str(gameover_2),font=style, align="center")
-                if gameover_2:
+                gameover = player_2.hit()
+                #score_tanks_P2 +=1
+                if gameover:
                     winner = "red"
-            
             if gameover is True and winner is not None:
                 score.game_over(winner)
-                return      
-
+                return 
+            turtle.goto(180,320)
+            turtle.clear()  
+            turtle.write("Score of blue:"+str(score_tanks_P1),font=style)
+            score_tanks_P1+=1
+                                
             
     player_1.update()
     player_2.update()
@@ -164,26 +169,8 @@ def draw():
     # Redraw every 20 milliseconds
     canvas.after(20, draw)
 
-def info_show():
-    style = ("Arial bold", 15)
-    turtle.penup()
-    turtle.goto(-280,320)
-    turtle.write("Score of red:"+str(),font=style, align="center")
-    turtle.goto(260,320)
-    turtle.write("Score of blue:"+str(),font=style, align="center")
 
-    health = 3
-    while health >= 1 and health <=3:
-        if gameover is True or gameover is False:
-            turtle.goto(-280,300)
-            turtle.write("Health:"+str(health),font=style, align="center")
-            turtle.goto(270,300)
-            turtle.write("Health:"+str(gameover.health),font=style, align="center")
-            health -= 1
-    
-    
 
-    turtle.pendown()
 
 setup()
 register_shapes()
@@ -199,7 +186,6 @@ create_players(game_arena)
 
 draw()
 
-#info_show()
 
 # Required for every turtle program
 turtle.mainloop()
