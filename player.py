@@ -5,17 +5,17 @@ import winsound
 
 from math import sin, cos, pi
 import time
-
+import turtle
 TWO_PI = 2 * pi
 
 class Player(Turtle):
-
+    
     def __init__(self, name, coord, game_arena, kb):
         Turtle.__init__(self)
         
         self.speed(0)
         self.penup()
-        
+        self.health = 0
         if name is "p1":
             self.shape("tank_left")
             self.mult = 1
@@ -28,7 +28,12 @@ class Player(Turtle):
         self.step_size = self.mult * PLAYER_SPEED
         self.turn_size = PLAYER_TURN_SPEED * pi / 180
         self.fireTime = -1
-        self.health = PLAYER_HEALTH
+        if self.health == 0:
+            def input_health():
+                window = turtle.Screen()
+                health = turtle.textinput("Health","Input main health:")
+                return int(health)
+        self.health = input_health()
         self.radius = 30
         
         self.name = name
@@ -78,7 +83,6 @@ class Player(Turtle):
         else:
             self.health -= 1 
             return False
-        Ư
     
 
     def fire(self):

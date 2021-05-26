@@ -16,7 +16,7 @@ class Bullet(Turtle):
         self.radians()
         self.seth(heading)
         
-        self.step_size = BULLET_SPEED
+        self.step_size = BULLET_SPEED 
         self.radius = 5
         self.obstacles = obstacles
         self.owner = owner
