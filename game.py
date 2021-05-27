@@ -136,6 +136,18 @@ def input_2():
     name_2 = turtle.textinput("2nd","2nd tank's name")
     return name_2
 
+is_paused = False
+
+wn = turtle.Screen()
+def pause():
+    global is_paused
+    if is_paused == True:
+        is_paused == False
+    else:
+        is_paused == True 
+
+wn.listen()
+wn.onkeypress(pause,"p")
 
 def draw():
     style = ("Arial bold", 15)
@@ -143,7 +155,6 @@ def draw():
     score_tanks_P2 =0 
     gameover = False
     winner = None
-    
     a = input()
     b = input_2()
     text_p1 = turtle.Turtle()
@@ -154,44 +165,49 @@ def draw():
     text_p1.write("Score of "+str(a)+ " " + str(score_tanks_P1),font=style)
     text_p2.setpos(-340,300)
     text_p2.write("Score of "+str(b)+ " " +str(score_tanks_P2),font=style)
-    while gameover is False:
-        turtle.penup()
-        for entity in screen.turtles():
-            if isinstance(entity, Bullet) and entity.alive and entity.update() is None:
-                # gameover = False
-                # winner = None
-                if entity.distance(player_1) <= (player_1.radius + entity.radius) and entity.owner is not "p1":
-                    entity.alive = False
-                    entity.hideturtle()
-                    gameover = player_1.hit()
-                    score_tanks_P1 +=1
 
-                    
-                    text_p1.clear()  
-                    text_p1.setpos(-340,320)
-                    text_p1.write("Score of "+str(a)+ " " + str(score_tanks_P1),font=style)
-                    if gameover :
-                        winner = a
-                    
-                elif entity.distance(player_2) <= (player_2.radius + entity.radius) and entity.owner is not "p2":
-                    entity.alive = False
-                    entity.hideturtle()
-                    gameover = player_2.hit()
-                    score_tanks_P2 +=1
-                    
-                    
-                    text_p2.clear()
-                    text_p2.setpos(-340,300)
-                    text_p2.write("Score of "+str(b)+ " " +str(score_tanks_P2),font=style)
-                    
-                    if gameover:
-                        winner = b
-                if gameover is True and winner is not None:
-                    score.game_over(winner)
-                    return 
-                text_p1.pendown()
-                text_p2.pendown()
-        turtle.hideturtle()
+    while gameover is False :
+       
+        # hàm if dưới phải là True thì mới hđ bth, VD is_paused == False thì if not false => true
+        if not is_paused:
+            turtle.penup()
+            for entity in screen.turtles():
+                if isinstance(entity, Bullet) and entity.alive and entity.update() is None:
+                    # gameover = False
+                    # winner = None
+                    if entity.distance(player_1) <= (player_1.radius + entity.radius) and entity.owner is not "p1":
+                        entity.alive = False
+                        entity.hideturtle()
+                        gameover = player_1.hit()
+                        score_tanks_P1 +=1
+                        
+                        text_p1.clear()  
+                        text_p1.setpos(-340,320)
+                        text_p1.write("Score of "+str(a)+ " " + str(score_tanks_P1),font=style)
+                        if gameover :
+
+                            winner = a
+                        
+                    elif entity.distance(player_2) <= (player_2.radius + entity.radius) and entity.owner is not "p2":
+                        entity.alive = False
+                        entity.hideturtle()
+                        gameover = player_2.hit()
+                        score_tanks_P2 +=1
+                        
+                        
+                        text_p2.clear()
+                        text_p2.setpos(-340,300)
+                        text_p2.write("Score of "+str(b)+ " " +str(score_tanks_P2),font=style)
+                        
+                        if gameover:
+                            winner = b
+                    if gameover is True and winner is not None:
+                
+                        score.game_over(winner)
+                        return 
+        else:
+            wn.update()
+                  
         player_1.update()
         player_2.update()
 
