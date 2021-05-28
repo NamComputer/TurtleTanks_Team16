@@ -17,7 +17,7 @@ FIRE_RATE = 0.8
 BULLET_SPEED = 5
 # -----------------------------------------------------
 # Don't touch these!
-BORDER = WINDOW_SIZE / 2
+BORDER = WINDOW_SIZE /2
 LEFT_EDGE = -BORDER
 RIGHT_EDGE = -LEFT_EDGE
 TOP_EDGE = BORDER
