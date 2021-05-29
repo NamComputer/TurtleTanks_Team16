@@ -14,7 +14,7 @@ class ScoreTurtle(Turtle):
     
     def game_over(self, winner):
         self.color("green")
-        sel.goto(0, 250)
+        self.goto(0, 250)
         self.write("GAME OVER\nWinner: " + winner, font=("Arial bold", 25), align="center")
         time.sleep(2.4)
         self.goto(0,0)

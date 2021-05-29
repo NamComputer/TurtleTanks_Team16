@@ -125,31 +125,15 @@ score = ScoreTurtle()
 
 def input():
     window = turtle.Screen()
-    # window.setup(500,500)
     name = turtle.textinput("1st","1st tank's name")
     return name
 
 def input_2():
     window = turtle.Screen()
-    # window.setup(500,500)
     name_2 = turtle.textinput("2nd","2nd tank's name")
     return name_2
 
 
-# def pause():
-#     paused = True
-#     while paused:
-#         for event in pygame.event.get():
-#             if event.type == pygame.QUIT:
-#                 pygame.quit()
-#                 quit()
-#             if event.type ==pygame.KEYDOWN:
-#                 if event.key == pygame.K_c:
-#                     paused = False
-#                 elif event.key == pygame.K_q:
-#                     pygame.quit()
-#                     quit()
-#         screen.fill("white")
 
 
 #is_paused = False
@@ -170,15 +154,19 @@ gameover = False
 winner = None
 
 def pause(x,y):
-    turtle.setpos(0,0)
-    # del(score.game_over())
-    turtle.penup()
-    turtle.clear()
-    gameover ==  False
-    winner = None
-    score_tanks_P1 = 0
-    score_tanks_P2 =0 
-    draw()
+    #screen.clear()
+    #turtle.exitonclick()
+    # global score_tanks_P1,score_tanks_P2
+    # global gameover,winner
+    # turtle.setpos(0,0)
+    # turtle.penup()
+    # gameover ==  False
+    # winner = None
+    # score_tanks_P1 = 0
+    # score_tanks_P2 =0 
+    pass
+    #draw()
+    
 def start():
     global game_state
     game_state = "game"
@@ -244,14 +232,15 @@ def draw():
                         winner = b
                 if gameover is True and winner is not None:
                     score.game_over(winner)
-                    if turtle.onscreenclick(pause,1) is True:
+
+                    if turtle.onscreenclick(pause,1) == True:
+                        screen.clear()
+                
                     
-                        pass
-                    if game_state == "game":
-                        wn.bgpic("Untitled.png")
+                  
                     return   
             
-                
+            
         player_1.update()
         player_2.update()
 
@@ -259,13 +248,15 @@ def draw():
         screen.update()
         # Redraw every 20 milliseconds
         #canvas.after(20, draw)
-        wn.listen()
 
 
 
 setup()
 register_shapes()
 
+def draw2():
+    turtle.onscreenclick(pause,1)   
+    draw()
 game_arena = None
 
 import tutorial
@@ -276,7 +267,7 @@ if not isinstance(game_arena, Arena):
 create_players(game_arena)
 
 draw()
-
+#draw2()
 
 # Required for every turtle program
 turtle.mainloop()
