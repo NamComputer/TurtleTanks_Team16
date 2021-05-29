@@ -151,19 +151,15 @@ score_tanks_P2 =0
 gameover = False
 winner = None
 
-def pause(x,y):
-    #screen.clear()
+def restart(x,y):
+    #turtle.bye()
+    screen.clear()
+  
+def stop(x,y):    
+    turtle.bye()    
+    turtle.Turtle._screen = None  # force recreation of singleton Screen object
+    turtle.TurtleScreen._RUNNING = True    
     draw()
-    
-    
-    
-def start():
-    global game_state
-    game_state = "game"
-
-wn.listen()
-wn.onkeypress(start,"p")
-
 
 def draw():
     style = ("Arial bold", 15)
@@ -221,12 +217,15 @@ def draw():
                     if gameover:
                         winner = b
                 if gameover is True and winner is not None:
-                    score.game_over(winner)
-
-                    if turtle.onscreenclick(pause,1) == True:
-                        screen.clear()
-                
-                    
+                    screen.clear()
+                    if winner == a:
+                        score.game_over(winner,score_tanks_P1)
+                    if winner == b:
+                        score.game_over(winner,score_tanks_P2)
+                    if turtle.onscreenclick(restart,1) == True:
+                        pass
+                    elif turtle.onscreenclick(stop,3) == True:
+                        pass
                   
                     return   
             
@@ -244,9 +243,7 @@ def draw():
 setup()
 register_shapes()
 
-def draw2():
-    turtle.onscreenclick(pause,1)   
-    draw()
+
 game_arena = None
 
 from Game.Objects import tutorial
@@ -258,7 +255,7 @@ if not isinstance(game_arena, Arena):
 create_players(game_arena)
 
 draw()
-#draw2()
+
 
 # Required for every turtle program
 turtle.mainloop()

@@ -12,10 +12,15 @@ class ScoreTurtle(Turtle):
     def update_score(self, player, score):
         pass
     
-    def game_over(self, winner):
-        self.color("green")
+    def game_over(self, winner,score_tanks):
+        self.color("red")
         self.goto(0, 250)
-        self.write("GAME OVER\nWinner: " + winner, font=("Arial bold", 25), align="center")
+        self.write("GAME OVER\nWinner: " + winner , font=("Arial bold", 25), align="center")
+        
+        self.goto(0, 220)
+        self.write("Score: "+  str(score_tanks) , font=("Arial bold", 25), align="center")
+        
         time.sleep(2.4)
         self.goto(0,0)
-        self.write("Click left to play again", font=("Arial bold", 35), align="center")
+        self.color("yellow")
+        self.write("Click right to play again", font=("Arial bold", 35), align="center")

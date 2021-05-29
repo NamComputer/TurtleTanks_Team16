@@ -9,7 +9,7 @@ PLAYER_SPEED = 1
 # Degrees per milliseconds
 PLAYER_TURN_SPEED = 1
 # Player health (# of hits player can take)
-# A = input_health()
+
 # PLAYER_HEALTH = A
 # Rate at which tanks can fire (in seconds)
 FIRE_RATE = 0.8
