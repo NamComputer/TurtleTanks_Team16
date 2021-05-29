@@ -1,5 +1,5 @@
 from turtle import Turtle
-from constants import *
+from Game.main.constants import *
 
 from math import sin, cos
 

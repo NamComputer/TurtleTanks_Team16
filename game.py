@@ -1,18 +1,14 @@
-from tkinter import constants
 import turtle
-import pygame
-from constants import *
-from player import Player
+from Game.main.constants import *
+from Game.Character.player import Player
 
-from arena import Arena
-from score_turtle import ScoreTurtle
-from bullet import Bullet
-from keyboard import Keyboard
+from Game.Objects.arena import Arena
+from Game.Objects.score_turtle import ScoreTurtle
+from Game.Character.bullet import Bullet
+from Game.Handling.keyboard import Keyboard
 
 from math import sin, cos, pi
-import os
-import sys
-import time
+
 # Create the screen
 screen = turtle.Screen()
 # Get the canvas
@@ -156,8 +152,10 @@ gameover = False
 winner = None
 
 def pause(x,y):
-    screen.clear()
+    #screen.clear()
     draw()
+    
+    
     
 def start():
     global game_state
@@ -223,12 +221,15 @@ def draw():
                     if gameover:
                         winner = b
                 if gameover is True and winner is not None:
-                    score.game_over(winner) 
-                    if turtle.onscreenclick(pause,1) == True:
-                        pass
-                        
-                    return   
+                    score.game_over(winner)
 
+                    if turtle.onscreenclick(pause,1) == True:
+                        screen.clear()
+                
+                    
+                  
+                    return   
+            
             
         player_1.update()
         player_2.update()
@@ -248,7 +249,8 @@ def draw2():
     draw()
 game_arena = None
 
-import tutorial
+from Game.Objects import tutorial
+
 game_arena = tutorial.game_arena
 if not isinstance(game_arena, Arena):
     raise RuntimeError 

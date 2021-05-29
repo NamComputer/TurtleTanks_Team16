@@ -1,6 +1,6 @@
 from turtle import Turtle
-from bullet import Bullet
-from constants import *
+from Game.Character.bullet import Bullet
+from Game.main.constants import *
 import winsound
 
 from math import sin, cos, pi

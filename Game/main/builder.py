@@ -1,6 +1,5 @@
 from turtle import Turtle
-from obstacle import Obstacle
-from constants import *
+from Game.main.constants import *
 
 class Builder(Turtle):
     

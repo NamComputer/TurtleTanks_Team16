@@ -1,5 +1,5 @@
-from arena import Arena
-from obstacle import Obstacle
+from Game.Objects.arena import Arena
+from Game.main.obstacle import Obstacle
 
 global game_arena
 
