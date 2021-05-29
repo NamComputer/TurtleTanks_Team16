@@ -10,7 +10,9 @@ from bullet import Bullet
 from keyboard import Keyboard
 
 from math import sin, cos, pi
-
+import os
+import sys
+import time
 # Create the screen
 screen = turtle.Screen()
 # Get the canvas
@@ -154,18 +156,8 @@ gameover = False
 winner = None
 
 def pause(x,y):
-    #screen.clear()
-    #turtle.exitonclick()
-    # global score_tanks_P1,score_tanks_P2
-    # global gameover,winner
-    # turtle.setpos(0,0)
-    # turtle.penup()
-    # gameover ==  False
-    # winner = None
-    # score_tanks_P1 = 0
-    # score_tanks_P2 =0 
-    pass
-    #draw()
+    screen.clear()
+    draw()
     
 def start():
     global game_state
@@ -231,15 +223,12 @@ def draw():
                     if gameover:
                         winner = b
                 if gameover is True and winner is not None:
-                    score.game_over(winner)
-
+                    score.game_over(winner) 
                     if turtle.onscreenclick(pause,1) == True:
-                        screen.clear()
-                
-                    
-                  
+                        pass
+                        
                     return   
-            
+
             
         player_1.update()
         player_2.update()
