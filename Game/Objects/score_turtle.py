@@ -22,5 +22,5 @@ class ScoreTurtle(Turtle):
         
         time.sleep(2.4)
         self.goto(0,0)
-        self.color("yellow")
-        self.write("Click right to play again", font=("Arial bold", 35), align="center")
+        self.color("black")
+        self.write("Press 'r' to play again\nClick 'right' to exit", font=("Arial bold", 35), align="center")

@@ -76,7 +76,7 @@ class Player(Turtle):
             
     def hit(self):
         print("Hit!")
-        winsound.PlaySound('G:\TurtleTanks\Game\Sounds\sound\hit.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
+        winsound.PlaySound('Game\Sounds\sound\hit.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
         print(self.health)
         if self.health == 1 :
             return True

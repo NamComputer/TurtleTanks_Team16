@@ -1,3 +1,4 @@
+from tkinter.constants import NONE
 import turtle
 from Game.main.constants import *
 from Game.Character.player import Player
@@ -8,7 +9,7 @@ from Game.Character.bullet import Bullet
 from Game.Handling.keyboard import Keyboard
 
 from math import sin, cos, pi
-
+from Game.Objects.tutorial import arena
 # Create the screen
 screen = turtle.Screen()
 # Get the canvas
@@ -117,8 +118,8 @@ def create_players(game_arena):
     turtle.listen()
 
 
-gameover = None
-score = ScoreTurtle()
+
+
 
 
 def input():
@@ -133,40 +134,24 @@ def input_2():
 
 
 
+def stop(x,y):
+    turtle.bye()
 
-#is_paused = False
-wn = turtle.Screen()
-# def pause():
-#     global is_paused
-#     if is_paused == True:
-#         is_paused == False
-#     else:
-#         is_paused == True 
-
-# wn.listen()
-# wn.onkeypress(pause,"p")
-
-score_tanks_P1 = 0
-score_tanks_P2 =0 
-gameover = False
-winner = None
-
-def restart(x,y):
-    #turtle.bye()
-    screen.clear()
   
-def stop(x,y):    
-    turtle.bye()    
-    turtle.Turtle._screen = None  # force recreation of singleton Screen object
-    turtle.TurtleScreen._RUNNING = True    
-    draw()
+# def restart(x,y):    
+#     turtle.clear()    
+#     # turtle.Turtle._screen = None  # force recreation of singleton Screen object
+#     # turtle.TurtleScreen._RUNNING = True    
+#     draw()
+score = ScoreTurtle()
 
+
+winner = None
 def draw():
     style = ("Arial bold", 15)
-    game_state = "test"
-    global score_tanks_P1
-    global score_tanks_P2
-    global gameover,winner
+    gameover = False
+    score_tanks_P1 = 0
+    score_tanks_P2 = 0  
     a = input()
     b = input_2()
     text_p1 = turtle.Turtle()
@@ -180,9 +165,7 @@ def draw():
     turtle.clear()
     
     while gameover is False :
-        # if game_state =="test":
-        #    wn.bgpic("Home_Pic.gif")
-        # elif game_state == "game":
+
         for entity in screen.turtles():
             if isinstance(entity, Bullet) and entity.alive and entity.update() is None:
                 # gameover = False
@@ -222,40 +205,44 @@ def draw():
                         score.game_over(winner,score_tanks_P1)
                     if winner == b:
                         score.game_over(winner,score_tanks_P2)
-                    if turtle.onscreenclick(restart,1) == True:
-                        pass
+                    #if turtle.onscreenclick(restart,1) == True:
+                    #    pass
                     elif turtle.onscreenclick(stop,3) == True:
                         pass
-                  
+                    
                     return   
-            
-            
+                
+                
         player_1.update()
         player_2.update()
 
-        # Draw the objects on the screen!
+            # Draw the objects on the screen!
         screen.update()
-        # Redraw every 20 milliseconds
+            # Redraw every 20 milliseconds
         #canvas.after(20, draw)
 
 
 
-setup()
-register_shapes()
 
 
-game_arena = None
+def start():
+    screen.clearscreen()
+    setup()
+    register_shapes()
 
-from Game.Objects import tutorial
+    game_arena = None
+    game_arena = arena()
+    if not isinstance(game_arena, Arena):
+        raise RuntimeError 
 
-game_arena = tutorial.game_arena
-if not isinstance(game_arena, Arena):
-    raise RuntimeError 
+    create_players(game_arena)
 
-create_players(game_arena)
+    draw()
+    turtle.listen()
+    turtle.onkey(start, 'r')
 
-draw()
 
+start()
 
 # Required for every turtle program
 turtle.mainloop()
