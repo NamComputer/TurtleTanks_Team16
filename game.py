@@ -137,19 +137,17 @@ def input_2():
 def stop(x,y):
     turtle.bye()
 
-  
-# def restart(x,y):    
-#     turtle.clear()    
-#     # turtle.Turtle._screen = None  # force recreation of singleton Screen object
-#     # turtle.TurtleScreen._RUNNING = True    
-#     draw()
+
 score = ScoreTurtle()
 
 
-winner = None
+
+
 def draw():
+    turtle.clear()
     style = ("Arial bold", 15)
     gameover = False
+    winner = None
     score_tanks_P1 = 0
     score_tanks_P2 = 0  
     a = input()
@@ -162,7 +160,7 @@ def draw():
     text_p1.write("Score of "+str(a)+ ": " + str(score_tanks_P1),font=style)
     text_p2.setpos(-345,300)
     text_p2.write("Score of "+str(b)+ ": " +str(score_tanks_P2),font=style)
-    turtle.clear()
+    
     
     while gameover is False :
 
@@ -175,7 +173,7 @@ def draw():
                     entity.hideturtle()
                     gameover = player_1.hit()
                     score_tanks_P1 +=1
-                    
+                  
                     text_p1.clear()  
                     text_p1.setpos(-340,320)
                     text_p1.penup()
@@ -190,7 +188,7 @@ def draw():
                     entity.hideturtle()
                     gameover = player_2.hit()
                     score_tanks_P2 +=1
-                    
+                   
                     
                     text_p2.clear()
                     text_p2.penup()
@@ -205,9 +203,8 @@ def draw():
                         score.game_over(winner,score_tanks_P1)
                     if winner == b:
                         score.game_over(winner,score_tanks_P2)
-                    #if turtle.onscreenclick(restart,1) == True:
-                    #    pass
-                    elif turtle.onscreenclick(stop,3) == True:
+    
+                    if turtle.onscreenclick(stop,3) is True:
                         pass
                     
                     return   
