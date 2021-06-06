@@ -1,14 +1,15 @@
+from tkinter.constants import NONE
 import turtle
+from Game.Main.constants import *
+from Game.Character.player import Player
 
-from constants import *
-from player import Player
-from arena import Arena
-from score_turtle import ScoreTurtle
-from bullet import Bullet
-from keyboard import Keyboard
+from Game.Objects.arena import Arena
+from Game.Objects.score_turtle import ScoreTurtle
+from Game.Character.bullet import Bullet
+from Game.Handling.keyboard import Keyboard
 
 from math import sin, cos, pi
-
+from Game.Objects.tutorial import arena
 # Create the screen
 screen = turtle.Screen()
 # Get the canvas
@@ -16,11 +17,14 @@ canvas = turtle.getcanvas()
 # Create a keyboard
 kb = Keyboard(canvas)
 
+
+
+
 # Setup the game!
 def setup():
     # Create the window
     turtle.setup(WINDOW_SIZE, WINDOW_SIZE)
-    # Hide the default turtle
+        # Hide the default turtle
     turtle.hideturtle()
     # Change the background color
     screen.bgcolor("white")
@@ -87,6 +91,7 @@ def register_shapes():
     # Uncomment to draw bounding box for debugging
     #components.append((map_transform(circle, 0, 0, 0, 3), "yellow"))
     build_tank("right", components)
+
     
 
 player_1 = None
@@ -108,51 +113,126 @@ def create_players(game_arena):
     kb.register_key("p2", "Down", "down")
     kb.register_key("p2", "Return", "fire")
     
+
     turtle.listen()
 
+
+def input():
+    window = turtle.Screen()
+    name = turtle.textinput("1st","1st tank's name")
+    return name
+
+def input_2():
+    window = turtle.Screen()
+    name_2 = turtle.textinput("2nd","2nd tank's name")
+    return name_2
+
+
+
+def stop(x,y):
+    turtle.bye()
+
+
 score = ScoreTurtle()
+
+
 def draw():
-    for entity in screen.turtles():
-        if isinstance(entity, Bullet) and entity.alive and entity.update() is None:
-            gameover = False
-            winner = None
-            if entity.distance(player_1) <= (player_1.radius + entity.radius) and entity.owner is not "p1":
-                entity.alive = False
-                entity.hideturtle()
-                gameover = player_1.hit()
-                if gameover:
-                    winner = "blue"
-            elif entity.distance(player_2) <= (player_2.radius + entity.radius) and entity.owner is not "p2":
-                entity.alive = False
-                entity.hideturtle()
-                gameover = player_2.hit()
-                if gameover:
-                    winner = "red"
-            
-            if gameover is True and winner is not None:
-                score.game_over(winner)
-                return      
-    player_1.update()
-    player_2.update()
+    turtle.clear()
+    style = ("Arial bold", 15)
+    gameover = False
+    winner = None
+    score_tanks_P1 = 0
+    score_tanks_P2 = 0  
+    a = input()
+    b = input_2()
+    text_p1 = turtle.Turtle()
+    text_p2 = turtle.Turtle()
+    text_p1.penup()
+    text_p2.penup()
+    text_p1.setpos(-345,320)
+    text_p1.write("Score of "+str(a)+ ": " + str(score_tanks_P1),font=style)
+    text_p2.setpos(-346,300)
+    text_p2.write("Score of "+str(b)+ ": " +str(score_tanks_P2),font=style)
+    
+    
+    while gameover is False :
 
-    # Draw the objects on the screen!
-    screen.update()
-    # Redraw every 20 milliseconds
-    canvas.after(20, draw)
+        for entity in screen.turtles():
+            if isinstance(entity, Bullet) and entity.alive and entity.update() is None:
+                gameover = False
+                winner = None
+                if entity.distance(player_1) <= (player_1.radius + entity.radius) and entity.owner is not "p1":
+                    entity.alive = False
+                    entity.hideturtle()
+                    #gameover = player_1.hit()
+                    score_tanks_P1 +=1
+                  
+                    text_p1.clear()  
+                    text_p1.setpos(-340,320)
+                    text_p1.penup()
+                    text_p1.write("Score of "+str(a)+ " " + str(score_tanks_P1),font=style)
+                    
+                    if gameover :
 
-setup()
-register_shapes()
+                        winner = a
+                    
+                elif entity.distance(player_2) <= (player_2.radius + entity.radius) and entity.owner is not "p2":
+                    entity.alive = False
+                    entity.hideturtle()
+                    gameover = player_2.hit()
+                    score_tanks_P2 +=1
+                   
+                    
+                    text_p2.clear()
+                    text_p2.penup()
+                    text_p2.setpos(-340,300)
+                    text_p2.write("Score of "+str(b)+ " " +str(score_tanks_P2),font=style)
+                    
+                    if gameover:
+                        winner = b
+                if gameover is True and winner is not None:
+                    screen.clear()
+                    if winner == a:
+                        score.game_over(winner,score_tanks_P1)
+                    if winner == b:
+                        score.game_over(winner,score_tanks_P2)
+    
+                    if turtle.onscreenclick(stop,3) is True:
+                        pass    
+                    
+                    return   
+                
+                
+        player_1.update()
+        player_2.update()
 
-game_arena = None
+            # Draw the objects on the screen!
+        screen.update()
+            # Redraw every 20 milliseconds
+        #canvas.after(20, draw)
 
-import tutorial
-game_arena = tutorial.game_arena
-if not isinstance(game_arena, Arena):
-    raise RuntimeError 
 
-create_players(game_arena)
+def start():
+    
+    #Main function to make game start
+    screen.clearscreen()
+    setup()
+    register_shapes()
 
-draw()
+    game_arena = None
+    game_arena = arena()
+    # Basic checks so that the students didn't accidentally mess things up by returning the wrong object
+    if not isinstance(game_arena, Arena):
+        raise RuntimeError 
+
+    create_players(game_arena)
+
+    draw()
+    turtle.listen()
+    turtle.onkey(start, 'r')
+
+
+start()
 
 # Required for every turtle program
 turtle.mainloop()
