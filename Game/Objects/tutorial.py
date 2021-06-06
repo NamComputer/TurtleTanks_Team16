@@ -1,20 +1,24 @@
 from turtle import radians
 from Game.Objects.arena import Arena
-from Game.main.obstacle import Obstacle
+from Game.Main.obstacle import Obstacle
 import random
 global game_arena
 
 def arena():
     game_arena = Arena()
 
-    # ------------------------------------------------------------------------------------
-    # Add your obstacles here!
-    # Order: name, list of coords, color, and radius/length & width
+    '''
+    Take Obstacle Order: name, list of coords, color, and radius/length & width to create obstacle
 
+                
+        Parameters:
+
+        Return: 
+            game_arena to build obstacle 
+    '''
+    
     x_circle = random.randint(-300,300)
     y_circle = random.randint(-300,300)
-
-    
     green_circle = Obstacle("circle", [x_circle, y_circle], "green", 60)
     game_arena.add_obstacle(green_circle)
 

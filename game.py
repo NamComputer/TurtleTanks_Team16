@@ -1,6 +1,6 @@
 from tkinter.constants import NONE
 import turtle
-from Game.main.constants import *
+from Game.Main.constants import *
 from Game.Character.player import Player
 
 from Game.Objects.arena import Arena
@@ -93,7 +93,6 @@ def register_shapes():
     build_tank("right", components)
 
     
-    
 
 player_1 = None
 player_2 = None
@@ -118,10 +117,6 @@ def create_players(game_arena):
     turtle.listen()
 
 
-
-
-
-
 def input():
     window = turtle.Screen()
     name = turtle.textinput("1st","1st tank's name")
@@ -141,8 +136,6 @@ def stop(x,y):
 score = ScoreTurtle()
 
 
-
-
 def draw():
     turtle.clear()
     style = ("Arial bold", 15)
@@ -158,7 +151,7 @@ def draw():
     text_p2.penup()
     text_p1.setpos(-345,320)
     text_p1.write("Score of "+str(a)+ ": " + str(score_tanks_P1),font=style)
-    text_p2.setpos(-345,300)
+    text_p2.setpos(-346,300)
     text_p2.write("Score of "+str(b)+ ": " +str(score_tanks_P2),font=style)
     
     
@@ -166,12 +159,12 @@ def draw():
 
         for entity in screen.turtles():
             if isinstance(entity, Bullet) and entity.alive and entity.update() is None:
-                # gameover = False
-                # winner = None
+                gameover = False
+                winner = None
                 if entity.distance(player_1) <= (player_1.radius + entity.radius) and entity.owner is not "p1":
                     entity.alive = False
                     entity.hideturtle()
-                    gameover = player_1.hit()
+                    #gameover = player_1.hit()
                     score_tanks_P1 +=1
                   
                     text_p1.clear()  
@@ -205,7 +198,7 @@ def draw():
                         score.game_over(winner,score_tanks_P2)
     
                     if turtle.onscreenclick(stop,3) is True:
-                        pass
+                        pass    
                     
                     return   
                 
@@ -219,16 +212,16 @@ def draw():
         #canvas.after(20, draw)
 
 
-
-
-
 def start():
+    
+    #Main function to make game start
     screen.clearscreen()
     setup()
     register_shapes()
 
     game_arena = None
     game_arena = arena()
+    # Basic checks so that the students didn't accidentally mess things up by returning the wrong object
     if not isinstance(game_arena, Arena):
         raise RuntimeError 
 

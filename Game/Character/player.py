@@ -1,6 +1,6 @@
 from turtle import Turtle
 from Game.Character.bullet import Bullet
-from Game.main.constants import *
+from Game.Main.constants import *
 import winsound
 
 from math import sin, cos, pi
@@ -9,8 +9,37 @@ import turtle
 TWO_PI = 2 * pi
 
 class Player(Turtle):
+    """
+    A Class that set rules how the tank can turn right, left, move,...
+
+    Attributes
+    --------------
+        name:str
+            return name of the player tank
+        coord:
+            return coordinate of player tank
+        game_arena:
+    Methods:
+    ---------------
+        is_inside(x,y):
+            return the player tank always remains in window screen
+        right_turn():
+            return turn right:
+        left_turn():
+            return turn_left:
+        forward_move():
+            return the tank is move forward
+        backward_move():
+            return the tank is move back
+        hit():
+            return hit sound when got hit
+        update():
+            control how the key is pressed and execute it on definition of function in Handling > is_pressed
+
+    """
     
     def __init__(self, name, coord, game_arena, kb):
+        """Take in the parameters, Return initialize value of player"""
         Turtle.__init__(self)
         
         self.speed(0)
@@ -43,15 +72,19 @@ class Player(Turtle):
         self.obstacles = game_arena.get_obstacles()
         
     def is_inside(self, x, y):
+        """Take the (x,y),return the player tank always remains in window screen """
         return (abs(x) + self.radius) < BORDER and (abs(y) + self.radius) < BORDER
     
     def right_turn(self):
+        """Return The degree when turn right"""
         self.seth((self.heading() - self.turn_size) % TWO_PI)
     
     def left_turn(self):
+        """Return The degree when turn left"""
         self.seth((self.heading() + self.turn_size) % TWO_PI)
         
     def forward_move(self):
+        """Take in the key u pressed, Return the tank goes forward"""
         angle = self.heading()
         tempx = self.xcor() + self.step_size * cos(angle)
         tempy = self.ycor() + self.step_size * sin(angle)
@@ -64,6 +97,7 @@ class Player(Turtle):
             self.sety(tempy)
             
     def backward_move(self):
+        """Take in the key u pressed, Return the tank goes backward"""
         angle = pi + self.heading()
         tempx = self.xcor() + self.step_size * cos(angle)
         tempy = self.ycor() + self.step_size * sin(angle)
@@ -75,6 +109,7 @@ class Player(Turtle):
             self.sety(tempy)
             
     def hit(self):
+        """Return the sound when bullet hit other tank"""
         print("Hit!")
         winsound.PlaySound('Game\Sounds\sound\hit.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
         print(self.health)

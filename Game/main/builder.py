@@ -1,7 +1,20 @@
 from turtle import Turtle
-from Game.main.constants import *
+from Game.Main.constants import *
 
 class Builder(Turtle):
+    """
+
+    A Class to build apppearance of the window screen and obstacle on the screen
+
+    Attribute
+    -----------
+    Method
+        draw_arena_outlines():
+            draw the outline of window game screen
+        draw_shape(obstacle):
+            return the shape is drawn 
+    """
+
     
     def __init__(self):
         Turtle.__init__(self)
@@ -31,6 +44,7 @@ class Builder(Turtle):
         self.hideturtle()
         
     def draw_shape(self, obstacle):
+        """Take in the name of obstacle, return the shape which is drawn on screen"""
         self.color(obstacle.color)
         if obstacle.shape_name is "circle":
             self.penup()

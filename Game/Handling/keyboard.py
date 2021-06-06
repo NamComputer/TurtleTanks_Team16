@@ -1,5 +1,21 @@
 class Keyboard:
-    
+    """
+    A Class to option which key is pressed
+
+    Attribute:
+    ---------------
+        Canvas:
+            Variable to  
+
+    Methods:
+    ---------------
+        register_key():
+            Listening to key when it's pressed or released
+        set_key():
+            Know the status of key
+        is_pressed():
+            Control which key is pressed
+    """
     def __init__(self, canvas):
         # A dictionary to keep track of which keys are pressed
         self.keyboard = {

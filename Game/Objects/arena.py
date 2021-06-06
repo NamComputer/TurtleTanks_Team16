@@ -1,10 +1,24 @@
-from Game.main.builder import Builder
+from Game.Main.builder import Builder
 
-#from constants import * (Code tham khảo đã có sẵn khi xóa đi thì không mất tác dụng với codeS)
-#arena = đấu trường
 class Arena:
+    """
+    A Class to create skeleton of arena such as: obstacle
     
+    Attribute
+    -------------
+    
+    Methods
+    ------------
+        get_obstacles():
+            return an obstacles
+        add_obstacles():
+            return obstacle append to a list
+        draw_arena():
+            draw obstacle and line on window screen
+    """
+
     def __init__(self):
+
         self.obstacles = []
         self.builder = Builder()
         
@@ -18,3 +32,5 @@ class Arena:
         self.builder.draw_arena_outline()
         for obstacle in self.obstacles:
             self.builder.draw_shape(obstacle)
+
+ 
