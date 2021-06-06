@@ -164,7 +164,7 @@ def draw():
                 if entity.distance(player_1) <= (player_1.radius + entity.radius) and entity.owner is not "p1":
                     entity.alive = False
                     entity.hideturtle()
-                    #gameover = player_1.hit()
+                    gameover = player_1.hit()
                     score_tanks_P1 +=1
                   
                     text_p1.clear()  
