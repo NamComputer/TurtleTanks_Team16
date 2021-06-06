@@ -11,3 +11,5 @@ Khi kết thúc game:
 + Chơi lại hay thoát game.
 
 Đồng thời tất cả Source game được tái tổ chức theo mô hình Module - Package nhằm dễ tương tác, dễ hiểu.
+
+Để có thể khởi tạo và chạy game hãy vào file game.py, nếu bạn sử dụng VsCode thì nhìn lên góc bên phải trên sẽ có nút hình "tam giác" ấn vô đó để chạy chương trình
